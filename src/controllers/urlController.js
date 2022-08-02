@@ -17,3 +17,13 @@ export function sendUrlById(req, res) {
 		res.sendStatus(500);
 	}
 }
+
+export function redirectUrl(req, res) {
+	try {
+		const url = res.locals.url;
+
+		res.redirect(url.url);
+	} catch (error) {
+		res.sendStatus(500);
+	}
+}

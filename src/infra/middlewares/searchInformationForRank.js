@@ -8,6 +8,8 @@ async function searchInformationForRank(req, res, next) {
             LEFT JOIN urls
             ON urls."userId" = users.id
             GROUP BY users.id
+            ORDER BY "visitCount" DESC
+            LIMIT 10 
         `);
 
 		res.locals.rank = rank;

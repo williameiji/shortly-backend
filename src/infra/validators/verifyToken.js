@@ -12,7 +12,9 @@ async function verifyToken(req, res, next) {
 	}
 	try {
 		const decoded = jwt.verify(token, process.env.SECRET_KEY_TOKEN);
-		res.locals.userDecoded = decoded;
+
+		res.locals.tokenDecoded = decoded;
+
 		next();
 	} catch (err) {
 		return res.status(401).send("Token inválido");

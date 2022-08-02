@@ -5,7 +5,7 @@ async function signupValidator(req, res, next) {
 
 	const { error } = signupSchema.validate(data);
 
-	if (error) return res.status(422).send("Todos os campos são obrigatórios!");
+	if (error) return res.status(422).send(error.message);
 
 	res.locals.data = data;
 

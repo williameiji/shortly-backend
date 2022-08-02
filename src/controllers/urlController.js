@@ -27,3 +27,11 @@ export function redirectUrl(req, res) {
 		res.sendStatus(500);
 	}
 }
+
+export function confirmDelete(req, res) {
+	try {
+		res.sendStatus(204);
+	} catch (error) {
+		res.sendStatus(500);
+	}
+}

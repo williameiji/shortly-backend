@@ -22,7 +22,7 @@ export function redirectUrl(req, res) {
 	try {
 		const url = res.locals.url;
 
-		res.redirect(url.url);
+		res.status(301).redirect(url.url);
 	} catch (error) {
 		res.sendStatus(500);
 	}
@@ -31,6 +31,16 @@ export function redirectUrl(req, res) {
 export function confirmDelete(req, res) {
 	try {
 		res.sendStatus(204);
+	} catch (error) {
+		res.sendStatus(500);
+	}
+}
+
+export function sendLinks(req, res) {
+	try {
+		const links = res.locals.links;
+
+		res.status(200).send(links);
 	} catch (error) {
 		res.sendStatus(500);
 	}

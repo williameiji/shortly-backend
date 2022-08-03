@@ -1,9 +1,9 @@
-import signupSchema from "../schemas/signupSchema.js";
+import schemasValidator from "../schemas/schemas.js";
 
 async function signupValidator(req, res, next) {
 	const data = req.body;
 
-	const { error } = signupSchema.validate(data);
+	const error = schemasValidator(req, data);
 
 	if (error) return res.status(422).send(error.message);
 

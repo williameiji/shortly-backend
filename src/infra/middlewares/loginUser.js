@@ -26,6 +26,7 @@ async function loginToken(req, res, next) {
 			);
 
 			res.locals.token = token;
+			res.locals.name = userRegistred[0].name;
 
 			next();
 		} else {

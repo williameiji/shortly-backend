@@ -17,7 +17,7 @@ async function urlShorten(req, res, next) {
 
 		await connection.query(
 			`INSERT INTO urls (url, "userId", "shortUrl") VALUES ($1, $2, $3)`,
-			[data.url, user[0].id, generateShortUrl]
+			[data.link, user[0].id, generateShortUrl]
 		);
 
 		res.locals.shortUrl = generateShortUrl;

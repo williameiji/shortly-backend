@@ -2,6 +2,7 @@ import connection from "../../databases/postgres.js";
 
 async function urlById(req, res, next) {
 	const { id } = req.params;
+	console.log(req);
 
 	try {
 		const { rows: url } = await connection.query(

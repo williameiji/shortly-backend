@@ -1,20 +1,16 @@
-import connection from "../../databases/postgres.js";
-import bcrypt from "bcrypt";
+import { signup } from "../../repository/querys.js";
 
 async function signupUser(req, res, next) {
 	const data = res.locals.data;
 
-	const encryptedPassaword = bcrypt.hashSync(data.password, 10);
-
 	try {
-		await connection.query(
-			`INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`,
-			[data.name, data.email, encryptedPassaword]
-		);
+		const error = await signup(data);
+
+		if (error.severity) return res.status(409).send(error.detail);
 
 		next();
 	} catch (error) {
-		res.sendStatus(409);
+		res.sendStatus(500);
 	}
 }
 

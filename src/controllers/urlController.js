@@ -35,13 +35,3 @@ export function confirmDelete(req, res) {
 		res.sendStatus(500);
 	}
 }
-
-export function sendLinks(req, res) {
-	try {
-		const links = res.locals.links;
-
-		res.status(200).send(links);
-	} catch (error) {
-		res.sendStatus(500);
-	}
-}

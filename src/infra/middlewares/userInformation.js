@@ -15,7 +15,7 @@ async function userInformation(req, res, next) {
 			`
             SELECT users.id, users.name, SUM(urls.counter) AS "visitCount"
             FROM users
-            JOIN urls
+            LEFT JOIN urls
             ON urls."userId" = users.id
             WHERE users.email = $1
             GROUP BY users.id

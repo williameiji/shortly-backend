@@ -4,6 +4,13 @@ async function userInformation(req, res, next) {
 	const email = res.locals.tokenDecoded;
 
 	try {
+		const { rows: userRegistred } = await connection.query(
+			`SELECT * FROM users WHERE users.email = $1`,
+			[data.email]
+		);
+
+		if (!userRegistred.length) return res.sendStatus(404);
+
 		const { rows: user } = await connection.query(
 			`
             SELECT users.id, users.name, SUM(urls.counter) AS "visitCount"
@@ -15,8 +22,6 @@ async function userInformation(req, res, next) {
         `,
 			[email.data]
 		);
-
-		if (!user.length) return res.sendStatus(404);
 
 		const { rows: userUrls } = await connection.query(
 			`

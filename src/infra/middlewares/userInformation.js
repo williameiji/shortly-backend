@@ -6,7 +6,7 @@ async function userInformation(req, res, next) {
 	try {
 		const { rows: userRegistred } = await connection.query(
 			`SELECT * FROM users WHERE users.email = $1`,
-			[data.email]
+			[email.data]
 		);
 
 		if (!userRegistred.length) return res.sendStatus(404);

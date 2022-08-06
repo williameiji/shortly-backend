@@ -8,6 +8,7 @@ import {
 	isUrlFromUser,
 	deleteUrl,
 } from "../repository/urlsRepository.js";
+import { nanoid } from "nanoid";
 
 export async function sendUrlShorten(req, res) {
 	const email = res.locals.tokenDecoded;
@@ -20,9 +21,11 @@ export async function sendUrlShorten(req, res) {
 	try {
 		const { rows: userInformation } = await isUserRegistered(email.data);
 
-		const { rows: shortUrl } = await urlShorten(data, userInformation[0].id);
+		const generateShortUrl = nanoid(6);
 
-		res.status(201).send({ shortUrl });
+		await urlShorten(data.link, userInformation[0].id, generateShortUrl);
+
+		res.status(201).send({ shortUrl: generateShortUrl });
 	} catch (error) {
 		res.sendStatus(500);
 	}

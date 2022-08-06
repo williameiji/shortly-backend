@@ -8,7 +8,7 @@ async function verifyToken(req, res, next) {
 	const token = getToken?.replace("Bearer ", "");
 
 	if (!token) {
-		return res.status(403).send("Um token é necessario para autenticação");
+		return res.status(401).send("Um token é necessario para autenticação");
 	}
 	try {
 		const decoded = jwt.verify(token, process.env.SECRET_KEY_TOKEN);

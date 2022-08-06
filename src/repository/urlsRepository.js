@@ -1,12 +1,9 @@
 import connection from "../databases/postgres.js";
-import { nanoid } from "nanoid";
 
-export async function urlShorten(data, id) {
-	const generateShortUrl = nanoid(8);
-
+export async function urlShorten(link, id, shortUrl) {
 	return await connection.query(
 		`INSERT INTO urls (url, "userId", "shortUrl") VALUES ($1, $2, $3)`,
-		[data.link, id, generateShortUrl]
+		[link, id, shortUrl]
 	);
 }
 

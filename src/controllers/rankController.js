@@ -1,6 +1,8 @@
-export function sendRank(req, res) {
+import { searchInformationForRank } from "../repository/rankRepository.js";
+
+export async function sendRank(req, res) {
 	try {
-		const rank = res.locals.rank;
+		const { rows: rank } = await searchInformationForRank();
 
 		res.status(200).send(rank);
 	} catch (error) {

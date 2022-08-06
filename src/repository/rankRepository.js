@@ -1,8 +1,7 @@
-import connection from "../../databases/postgres.js";
+import connection from "../databases/postgres.js";
 
-async function searchInformationForRank(req, res, next) {
-	try {
-		const { rows: rank } = await connection.query(`
+export async function searchInformationForRank() {
+	return await connection.query(`
             SELECT users.id, users.name, COALESCE(COUNT(urls),0) AS "linksCount", COALESCE(SUM(urls.counter),0) AS "visitCount"
             FROM users
             LEFT JOIN urls
@@ -11,13 +10,4 @@ async function searchInformationForRank(req, res, next) {
             ORDER BY "visitCount" DESC
             LIMIT 10 
         `);
-
-		res.locals.rank = rank;
-
-		next();
-	} catch (error) {
-		res.sendStatus(500);
-	}
 }
-
-export default searchInformationForRank;

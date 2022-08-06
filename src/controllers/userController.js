@@ -1,8 +1,21 @@
-export function sendUserInformation(req, res) {
-	const user = res.locals.user;
-	const userUrls = res.locals.userUrls;
+import {
+	isUserRegistered,
+	userInformation,
+	urlsInformation,
+} from "../repository/userRepository.js";
+
+export async function sendUserInformation(req, res) {
+	const email = res.locals.tokenDecoded;
 
 	try {
+		const { rows: userRegistred } = await isUserRegistered(email.data);
+
+		if (!userRegistred.length) return res.sendStatus(404);
+
+		const { rows: user } = await userInformation(email.data);
+
+		const { rows: userUrls } = await urlsInformation(user[0].id);
+
 		const informations = {
 			...user,
 			shortenedUrls: userUrls,
